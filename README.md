@@ -1,5 +1,7 @@
 # internship-manager
 
+Here you can see the project: https://internship-manager.netlify.app/
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
