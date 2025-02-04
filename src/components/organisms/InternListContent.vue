@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div>
     <h1 class="main-title mb-8">Interns manager 🧠</h1>
     <div class="list-wrapper p-8">
@@ -18,30 +18,9 @@
         :pagesToShow="pagesToShow" />
     </div>
   </div>
-</template> -->
-
-<template>
-  <div>
-    <h1 class="main-title mb-8">Interns manager 🧠</h1>
-    <div class="list-wrapper p-8">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-        <SearchBar @updateSearch="handleSearch" />
-        <CustomButton label="Add Intern" @click="addIntern" />
-      </div>
-
-      <div v-for="(intern, index) in filteredInterns" :key="intern.id" :class="{ 'bg-gray-100': index % 2 === 1 }"
-        class="flex flex-col gap-4">
-        <InternListElement :id="intern.id" :firstName="intern.first_name" :lastName="intern.last_name"
-          :email="intern.email" :avatar="intern.avatar" @internDeleted="removeIntern" />
-      </div>
-    </div>
-    <div class="pagination p-8">
-      <ListPagination :changePage="changePage" :totalPages="store.totalPages" :currentPage="store.currentPage" />
-    </div>
-  </div>
 </template>
 
-<!-- <script setup>
+<script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
@@ -110,53 +89,8 @@ const removeIntern = (id) => {
 };
 
 onMounted(fetchInterns);
-</script> -->
-
-<script setup>
-import { computed, watch, onMounted } from 'vue';
-import { useInternStore } from '@/stores/interns';
-import { useRouter } from 'vue-router';
-import InternListElement from '../molecules/InternListElement.vue';
-import ListPagination from '../atoms/ListPagination.vue';
-import SearchBar from '../atoms/SearchBar.vue';
-import CustomButton from '../atoms/CustomButton.vue';
-
-const store = useInternStore();
-const router = useRouter();
-
-const filteredInterns = computed(() => {
-  return store.interns;
-});
-
-const handleSearch = (text) => {
-  store.interns = store.originalInterns.filter((intern) =>
-    intern.first_name.toLowerCase().includes(text.toLowerCase()) ||
-    intern.last_name.toLowerCase().includes(text.toLowerCase())
-  );
-};
-
-const addIntern = () => {
-  router.push('/add');
-};
-
-const removeIntern = (id) => {
-  store.deleteIntern(id);
-};
-
-const changePage = (page) => {
-  if (page >= 1 && page <= store.totalPages) {
-    store.fetchInterns(page);
-  }
-};
-
-onMounted(() => {
-  store.fetchInterns();
-});
-
-watch(() => store.currentPage, (newPage) => {
-  store.fetchInterns(newPage);
-});
 </script>
+
 <style scoped>
 .main-title {
   font-size: 40px;

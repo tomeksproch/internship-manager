@@ -25,7 +25,7 @@ export const useInternStore = defineStore('interns', {
     },
 
     addIntern(intern) {
-      this.interns = [...this.interns, intern] // Aktualizacja listy
+      this.interns = [...this.interns, intern]
     },
 
     updateIntern(id, updatedIntern) {

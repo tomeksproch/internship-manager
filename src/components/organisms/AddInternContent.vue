@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<!-- <script setup>
+<script setup>
 import { ref } from 'vue';
 import axios from 'axios';
 import InternInfoForm from '../molecules/InternInfoForm.vue';
@@ -35,50 +35,6 @@ const submitInternData = async (newInternData) => {
     });
 
     console.log('Intern added:', response.data);
-  } catch (error) {
-    console.error('Error adding intern:', error);
-  }
-};
-</script> -->
-
-<script setup>
-import { ref } from 'vue';
-import { useInternStore } from '@/stores/interns';
-import { useRouter } from 'vue-router';
-import axios from 'axios';
-import InternInfoForm from '../molecules/InternInfoForm.vue';
-import UploadAvatar from '../molecules/UploadAvatar.vue';
-
-const store = useInternStore();
-const router = useRouter();
-
-const internData = ref({
-  firstName: '',
-  lastName: '',
-});
-const avatarUrl = ref('');
-
-const updateAvatar = (newAvatarUrl) => {
-  avatarUrl.value = newAvatarUrl;
-};
-
-const submitInternData = async (newInternData) => {
-  try {
-    const response = await axios.post('https://reqres.in/api/users', {
-      name: `${newInternData.firstName} ${newInternData.lastName}`,
-      job: 'intern',
-    });
-
-    const newIntern = {
-      id: response.data.id,
-      first_name: newInternData.firstName,
-      last_name: newInternData.lastName,
-      email: `${newInternData.firstName.toLowerCase()}.${newInternData.lastName.toLowerCase()}@example.com`,
-      avatar: avatarUrl.value || 'https://via.placeholder.com/150',
-    };
-
-    store.addIntern(newIntern); // 🚀 Aktualizujemy Store
-    router.push('/'); // 🔄 Przekierowanie do listy
   } catch (error) {
     console.error('Error adding intern:', error);
   }
